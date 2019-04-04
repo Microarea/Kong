@@ -1,4 +1,4 @@
-FROM kong@sha256:c0427cf6bb766ad02eda2f1878352ef89c17519d1bab7b4b160ff74f9e0f8d4f #kong:1.0.3-alpine
+FROM kong:1.0.3-alpine
 COPY kongredirect.kong.conf /etc/kong/kongredirect.kong.conf
 
 ENV KONG_DATABASE=postgres
