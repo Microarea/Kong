@@ -1,4 +1,4 @@
  #!/bin/bash
 echo "variabile ->" $BUILD
-git tag -a -m "Docker Hub automated build tag on successfully build for version" 1.$BUILD
+git tag -a -m "Docker Hub automated build tag on successfully build for version" 1.999
 git push --tags 
