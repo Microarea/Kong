@@ -1,12 +1,21 @@
-FROM kong:1.0.3-alpine
+FROM kong:2.8.0-alpine
+
+COPY docker-entrypoint-new.sh /docker-entrypoint-new.sh
+
 COPY kongredirect.kong.conf /etc/kong/kongredirect.kong.conf
 
-ENV KONG_DATABASE=postgres
-ENV KONG_PROXY_ACCESS_LOG=/dev/stdout
-ENV KONG_ADMIN_ACCESS_LOG=/dev/stdout
-ENV KONG_PROXY_ERROR_LOG=/dev/stderr
-ENV KONG_ADMIN_ERROR_LOG=/dev/stderr
-ENV KONG_ADMIN_LISTEN=0.0.0.0:8001
+COPY nginx.conf /nginx.conf
 
-ENV KONG_NGINX_HTTP_INCLUDE=/etc/kong/kongredirect.kong.conf
+USER root
 
+RUN apk add --no-cache bash su-exec
+
+RUN apk add --update tini
+
+RUN chmod +x /docker-entrypoint-new.sh
+
+ENTRYPOINT ["/docker-entrypoint-new.sh"]
+
+ENV KONG_NGINX_READ_TIMEOUT=120000
+
+CMD ["kong", "docker-start"]
