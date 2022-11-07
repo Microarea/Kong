@@ -1,4 +1,4 @@
-FROM kong:3.0.1
+FROM kong:3.0.0-alpine
 
 COPY docker-entrypoint-new.sh /docker-entrypoint-new.sh
 
